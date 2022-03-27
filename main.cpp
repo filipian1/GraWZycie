@@ -1,7 +1,7 @@
 #include "mainwindow.h"
 #include <QApplication>
 #include <iostream>
-#include "MojaKlasa.h"
+#include "LogikaAplikacji.h"
 #include <bits/stdc++.h>
 
 

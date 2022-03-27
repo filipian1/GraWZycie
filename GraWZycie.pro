@@ -13,7 +13,7 @@ SOURCES += \
     mainwindow.cpp
 
 HEADERS += \
-    MojaKlasa.h \
+    LogikaAplikacji.h \
     mainwindow.h
 
 FORMS += \

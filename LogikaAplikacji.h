@@ -1,16 +1,17 @@
-#ifndef MOJAKLASA_H
-#define MOJAKLASA_H
+#ifndef LOGIKAAPLIKACJI_H
+#define LOGIKAAPLIKACJI_H
 
 
-class CMojaKlasa{
+class Komorka{
     public:
-        CMojaKlasa(int,bool);
-        ~CMojaKlasa();
-        int Wiek();
-        bool Czy_moja();
+        Komorka(int,int,bool);
+        ~Komorka();
+
+
     private:
-        int FWiek;
-        bool FCzy_moja;
+        bool stan;
+        int pozycjaX;
+        int pozycjaY;
 };
 
 //class A
@@ -56,4 +57,4 @@ class CMojaKlasa{
 
 
 
-#endif // MOJAKLASA_H
+#endif // LOGIKAAPLIKACJI_H
