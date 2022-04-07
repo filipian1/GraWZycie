@@ -9,11 +9,18 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    Komorki.cpp \
+    Kontroler.cpp \
+    Symulacja.cpp \
+    Warunki.cpp \
     main.cpp \
     mainwindow.cpp
 
 HEADERS += \
-    LogikaAplikacji.h \
+    Komorki.h \
+    Kontroler.h \
+    Symulacja.h \
+    Warunki.h \
     mainwindow.h
 
 FORMS += \

@@ -2,17 +2,8 @@
 #define LOGIKAAPLIKACJI_H
 
 
-class Komorka{
-    public:
-        Komorka(int,int,bool);
-        ~Komorka();
 
 
-    private:
-        bool stan;
-        int pozycjaX;
-        int pozycjaY;
-};
 
 //class A
 //{
