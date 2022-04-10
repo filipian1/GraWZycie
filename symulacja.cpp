@@ -1,65 +1,117 @@
-#include <iostream>
 #include "Symulacja.h"
-#include "Komorki.h"
-#include "Warunki.h"
-
 using namespace std;
 
 Symulacja::Symulacja(int _x, int _y,int _stan_pocz, int _min_zycie,
-                     int _max_zycie, int _min_smierc, int _max_smierc)
+                     int _max_zycie, int _min_smierc, int _max_smierc )
     :zycieWarunkiObj(_min_zycie,_max_zycie),
      smiercWarunkiObj(_min_smierc, _max_smierc) {
 
     //zerowy krok symulacji
-    krok_symulacji=0;
-//    this->krok_syumulacji=0;
+    krokSymulacji_=0;
     //inicjalizacja komorek
-    cout<<"Symulacja konstruktor" << endl;
+//    cout<<"Symulacja konstruktor" << endl;
 
-    wymiar_xy.push_back(_x);
-    wymiar_xy.push_back(_y);
+    wymiarXY_.push_back(_x);
+    wymiarXY_.push_back(_y);
+    vector<int> wiersz;
 
     //utworzenie tablicy komorek
-    for(int i=0;i<wymiar_xy[1];i++)
+    for(int i=0;i<wymiarXY_[1];i++)
     {
-        vector<int> wiersz;
-        for(int j=0;j<wymiar_xy[0];j++)
+        //zerowanie wiersza
+        wiersz.clear();
+        for(int j=0;j<wymiarXY_[0];j++)
         {
           wiersz.push_back(_stan_pocz);
         }
 
-      tablica_komorek.push_back(wiersz);
+      tablicaKomorek_.push_back(wiersz);
     }
     //status poczatkowy symulacji
-    status_symulacji=false;
-
+    statusSymulacji_=false;
 
 }
-
 
 Symulacja::~Symulacja(){}
 
 void Symulacja::startSymulacji(){
-    status_symulacji=true;
+    statusSymulacji_=true;
 }
 
 void Symulacja::stopSymulacji(){
-    status_symulacji=false;
+    statusSymulacji_=false;
 }
 
 void Symulacja::resetSymulacji(){
-    status_symulacji=false;
+    statusSymulacji_=false;
 }
+
+void Symulacja::initTablicaKomorek(string _plik_init){
+
+//    cout << "Inicjalizacja Tablicy Komorek"<<endl;
+    string line, text, row, temp, word;
+    fstream moj_plik;
+    vector<int> wiersz;
+//    cout << "FILEPATH: " << _plik_init << endl;
+
+    //otworzenie pliku
+    moj_plik.open(_plik_init, ios::in);
+    if(moj_plik.is_open())
+    {
+//        cout << "udalo sie otworzyc plik" <<endl;
+
+        //zerowanie komórek
+        tablicaKomorek_.clear();
+
+        //odczyt pliku
+        while (getline(moj_plik, line)) {
+                wiersz.clear();         //zerowanie wiersza
+                stringstream str(line); //uzycie stringstream to przeiterowania przez kolumny
+
+                //odczyt kolumn i zapisanie to tablicyKomorek
+                while(getline(str, word, '\t')){
+                    wiersz.push_back(stoi(word));
+                }
+                tablicaKomorek_.push_back(wiersz);
+        }
+
+    }
+    else
+        cout << "Nie znaleziono pliku"<<endl;
+
+//    cout << "Komorki po wczytaniu:" <<endl;
+//    printTablica_komorek();
+    moj_plik.close(); //zamkniecie pliku
+}
+
+void  Symulacja::printTablica_komorek(){
+    //wyswietlenie tablicy komorek
+    int kolumny = wymiarXY_[0];
+    int wiersze = wymiarXY_[1];
+
+    for(int w=0;w<wiersze;w++){
+        for(int k=0;k<kolumny;k++){
+            if (tablicaKomorek_[w][k] == 0)
+                  cout <<". ";
+            else
+                  cout <<"* ";
+        }
+        cout << endl;
+    }
+}
+
 
 void Symulacja::obliczNastepnyKrokSymulacji(){
 
-    cout << "Obliczam krok symulacji nr: " << krok_symulacji << endl;
-    int kolumny = wymiar_xy[0];
-    int wiersze = wymiar_xy[1];
+    cout << "Krok symulacji nr: " << krokSymulacji_ << endl;
+    int kolumny = wymiarXY_[0];
+    int wiersze = wymiarXY_[1];
     vector<vector< int >> przyszle_komorki;
-    if (krok_symulacji==0){
-        przyszle_komorki=tablica_komorek;
-    }
+    przyszle_komorki=tablicaKomorek_;
+
+    //wyswietlenie tablicy komorek
+
+ printTablica_komorek();
 
 
     for(int w=1;w<wiersze-1;w++){
@@ -69,44 +121,70 @@ void Symulacja::obliczNastepnyKrokSymulacji(){
             int zywi_sasiedzi=0;
             for (int i = -1; i < 2; i++)
                 for (int j = -1; j < 2; j++)
-                    zywi_sasiedzi += tablica_komorek[w + i][k + j];
-
-            cout << "Kom: "<< w*(wiersze-1)+k << " Zywi sasiedzi " << zywi_sasiedzi << endl;
+                    zywi_sasiedzi += tablicaKomorek_[w + i][k + j];
 
             //odjecie komorki centralnej
-            zywi_sasiedzi -= tablica_komorek[w][k];
+            zywi_sasiedzi -= tablicaKomorek_[w][k];
 
             //Sprawdzanie warunkow przezycia:
 
+           vector< int > _smiercWarunki = smiercWarunkiObj.warunekIloscKomorek();
+           vector< int > _zycieWarunki  = zycieWarunkiObj.warunekIloscKomorek();
+
+//            cout << "rozmiar: "<<_smiercWarunki.size() << endl;
+
+//            copy(_smiercWarunki.begin(), _smiercWarunki.end(), ostream_iterator<int>(cout," | "));
+
+//            cout << "po problemie" <<endl;
+
+          //  cout << "Warunki: " << _smiercWarunki[0] << " "<< _smiercWarunki[1]<< " " << _zycieWarunki[0]<< " " <<_zycieWarunki[1] << endl;
+
+
             //Warunki smierci komorki
-            if ((tablica_komorek[w][k] == 1) && ((zywi_sasiedzi < 2)|| (zywi_sasiedzi > 3)))
+            if ((tablicaKomorek_[w][k] == 1) && ((zywi_sasiedzi < _smiercWarunki[0])|| (zywi_sasiedzi > _smiercWarunki[1])))
                 przyszle_komorki[w][k] = 0;
 
             //Narodziny komorki
-            else if ((tablica_komorek[w][k] == 0) && (zywi_sasiedzi == 3))
+            else if ((tablicaKomorek_[w][k] == 0) && ((zywi_sasiedzi >= _zycieWarunki[0]) && (zywi_sasiedzi <= _zycieWarunki[1])) )
                 przyszle_komorki[w][k] = 1;
 
             //Brak zmian
             else
-                przyszle_komorki[w][k] = tablica_komorek[w][k];
+                przyszle_komorki[w][k] = tablicaKomorek_[w][k];
         }
     }
-
+    //przepisanie wartosci z przyszlych komorek do  tablicyKomorek_:
+//    tablicaKomorek_.clear();
+    tablicaKomorek_=przyszle_komorki;
 
     //inkrementacja kroku symulacji
-    krok_symulacji++;
-
-
-
-
+    krokSymulacji_++;
 
 }
-bool Symulacja::podajStatusSymulacji(){
 
-    return status_symulacji;
+bool Symulacja::statusSymulacji() const
+{
+    return statusSymulacji_;
 }
 
-int Symulacja::podaj_krok_symulacji(){
-    return krok_symulacji;
-
+void Symulacja::setStatusSymulacji(bool newStatusSymulacji)
+{
+    statusSymulacji_ = newStatusSymulacji;
 }
+
+int Symulacja::krokSymulacji() const
+{
+    return krokSymulacji_;
+}
+
+const vector<vector<int> > &Symulacja::tablicaKomorek() const
+{
+    return tablicaKomorek_;
+}
+
+void Symulacja::setTablicaKomorek(const vector<vector<int> > &newTablicaKomorek)
+{
+    tablicaKomorek_ = newTablicaKomorek;
+}
+
+

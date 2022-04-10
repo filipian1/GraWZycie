@@ -1,24 +1,31 @@
 #include "Warunki.h"
 
-
+//KONSTRUKTOR
 Warunki::Warunki(int _min_kom, int _max_kom){
 
-    cout <<"Warunki: " << this <<endl;
-    vector<int> warunek_ilosc_komorek{_min_kom, _max_kom};
 
+    warunekIloscKomorek_.push_back(_min_kom);
+    warunekIloscKomorek_.push_back(_max_kom);
+
+//    cout <<"rozmiar w konstruktorze: " <<  warunekIloscKomorek_.size() << endl;
+//    cout << "MIN i MAX: " << warunekIloscKomorek_[0] << warunekIloscKomorek_[1] <<endl;
 }
 
-
+//DESTRUKTOR
 Warunki::~Warunki(){}
 
-void Warunki::zmienMax(int _max_kom){
-    warunek_ilosc_komorek[1]=_max_kom;
+
+int Warunki::testWarunki(){
+    return 3;
 }
-void Warunki::zmienMin(int _min_kom){
-    warunek_ilosc_komorek[0]=_min_kom;
+const vector<int> &Warunki::warunekIloscKomorek() const
+{
+//    cout << "Wewnatrz warunki Ilosc Komorek" <<endl;
+//    cout <<"rozmiar" << warunekIloscKomorek_.size() << endl;
+    return warunekIloscKomorek_;
 }
 
-vector<int> Warunki::podajWarunki(){
-
-    return warunek_ilosc_komorek;
+void Warunki::setWarunekIloscKomorek(const vector<int> &newWarunekIloscKomorek)
+{
+    warunekIloscKomorek_ = newWarunekIloscKomorek;
 }

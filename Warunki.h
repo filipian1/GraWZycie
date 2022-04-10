@@ -11,11 +11,12 @@ class Warunki{
 public:
     Warunki(int, int);
     ~Warunki();
-    void zmienMax(int);
-    void zmienMin(int);
-    vector<int> podajWarunki();
+    const  vector<int> &warunekIloscKomorek() const;
+    int testWarunki();
+    void setWarunekIloscKomorek(const vector<int> &newWarunekIloscKomorek);
+
 private:
-    vector<int> warunek_ilosc_komorek;
+    vector<int> warunekIloscKomorek_;
 };
 
 #endif //WARUNKI_H
