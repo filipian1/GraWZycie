@@ -51,20 +51,6 @@ vector <int> interfejsTerminal(){
 int main(int argc, char *argv[])
 {
 
-    //czy GUI
-    QApplication a(argc, argv);
-    MainWindow w;
-    bool czy_gui = true;
-
-    if (czy_gui ==true)
-    {
-
-        w.show();
-    }
-    else
-    {
-       vector <int> myinterfejsTerminal= interfejsTerminal();
-    }
 
     int okres_symulacji=10;
     int rozmiar_x=10;
@@ -77,37 +63,55 @@ int main(int argc, char *argv[])
     string _plik_init="D:\\Users\\285732\\Documents\\WORKSPACES\\Qt\\GraWZycie\\Pliki\\tablica_init.csv";
     //string _plik_init="..\\..\\GraWZycie\\Pliki\\tablica_init.csv";
 
-    //cout <<"Jest  w main" <<endl;
+
+    QWidget *myQWidget=0;
+    QApplication qAppGameOfLifeObj(argc, argv);
+
+    MainWindow mainWindowObj(okres_symulacji, rozmiar_x,  rozmiar_y, stan_pocz,  min_zycie, max_zycie,  min_smierc,  max_smierc,myQWidget);
+
+    //czy GUI
+    bool czy_gui = true;
+
+    if (czy_gui ==true)
+    {
+        mainWindowObj.show();
+    }
+    else
+    {
+       vector <int> myinterfejsTerminal= interfejsTerminal();
+    }
+
+    cout <<"Jest  w main" <<endl;
 
     //Komorki kom1 = Komorki(rozmiar_x,rozmiar_y,stan_pocz);
-    Kontroler kontrolerObj = Kontroler(okres_symulacji, rozmiar_x,  rozmiar_y, stan_pocz,  min_zycie,
-                                       max_zycie,  min_smierc,  max_smierc);
+//    Kontroler kontrolerObj = Kontroler(okres_symulacji, rozmiar_x,  rozmiar_y, stan_pocz,  min_zycie,
+//                                       max_zycie,  min_smierc,  max_smierc);
 
+    cout <<"Utworzono obiekt kontrolera: " << &mainWindowObj.kontrolerObj << endl;
+    cout << "okres to: " <<mainWindowObj.kontrolerObj.podajOkresAktualizacji() << endl;
 
-
-    //cout << &kontrolerObj;
-    //cout << "okres to: " <<kontrolerObj.podajOkresAktualizacji() << endl;
-
-    kontrolerObj.symulacjaObj.initTablicaKomorek(_plik_init);
-
-    kontrolerObj.symulacjaObj.startSymulacji();
+   mainWindowObj.kontrolerObj.symulacjaObj.initTablicaKomorek(_plik_init);
 
 
     int i=0;
-    while (kontrolerObj.symulacjaObj.statusSymulacji()){
 
-        kontrolerObj.symulacjaObj.obliczNastepnyKrokSymulacji();
+    mainWindowObj.kontrolerObj.symulacjaObj.setStatusSymulacji(true);
+
+    while (mainWindowObj.kontrolerObj.symulacjaObj.statusSymulacji()){
+        cout <<"w while";
+        mainWindowObj.kontrolerObj.symulacjaObj.obliczNastepnyKrokSymulacji();
         i++;
 
         if(i>10)
         {
-            kontrolerObj.symulacjaObj.stopSymulacji();
+            mainWindowObj.kontrolerObj.symulacjaObj.stopSymulacji();
         }
     }
+    cout << "Poza_app" << endl;
 
     //kontrolerObj.wczytajGre();
 
 
 
-    return a.exec();
+    return qAppGameOfLifeObj.exec();
 }

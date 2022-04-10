@@ -8,7 +8,7 @@ using namespace std;
 
 class Kontroler{
 public:
-    Kontroler(int,int, int, int, int, int, int,int);
+    Kontroler(int ,int, int, int, int, int, int,int);
     ~Kontroler();
     void zapiszGre();
     void wczytajGre(string);

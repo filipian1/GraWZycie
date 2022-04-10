@@ -3,8 +3,8 @@ using namespace std;
 
 Symulacja::Symulacja(int _x, int _y,int _stan_pocz, int _min_zycie,
                      int _max_zycie, int _min_smierc, int _max_smierc )
-    :zycieWarunkiObj(_min_zycie,_max_zycie),
-     smiercWarunkiObj(_min_smierc, _max_smierc) {
+    :zycieWarunkiObj(_min_zycie,_max_zycie)
+    ,smiercWarunkiObj(_min_smierc, _max_smierc) {
 
     //zerowy krok symulacji
     krokSymulacji_=0;
@@ -29,7 +29,6 @@ Symulacja::Symulacja(int _x, int _y,int _stan_pocz, int _min_zycie,
     }
     //status poczatkowy symulacji
     statusSymulacji_=false;
-
 }
 
 Symulacja::~Symulacja(){}
@@ -58,7 +57,7 @@ void Symulacja::initTablicaKomorek(string _plik_init){
     moj_plik.open(_plik_init, ios::in);
     if(moj_plik.is_open())
     {
-//        cout << "udalo sie otworzyc plik" <<endl;
+        cout << "udalo sie otworzyc plik" <<endl;
 
         //zerowanie komórek
         tablicaKomorek_.clear();
@@ -79,9 +78,11 @@ void Symulacja::initTablicaKomorek(string _plik_init){
     else
         cout << "Nie znaleziono pliku"<<endl;
 
-//    cout << "Komorki po wczytaniu:" <<endl;
-//    printTablica_komorek();
+    cout << "Komorki po wczytaniu:" <<endl;
+    printTablica_komorek();
     moj_plik.close(); //zamkniecie pliku
+
+    cout << "Zamknieto plik" << endl;
 }
 
 void  Symulacja::printTablica_komorek(){
@@ -89,6 +90,7 @@ void  Symulacja::printTablica_komorek(){
     int kolumny = wymiarXY_[0];
     int wiersze = wymiarXY_[1];
 
+    cout <<"W print tablica" << endl;
     for(int w=0;w<wiersze;w++){
         for(int k=0;k<kolumny;k++){
             if (tablicaKomorek_[w][k] == 0)
@@ -108,6 +110,7 @@ void Symulacja::obliczNastepnyKrokSymulacji(){
     int wiersze = wymiarXY_[1];
     vector<vector< int >> przyszle_komorki;
     przyszle_komorki=tablicaKomorek_;
+
 
     //wyswietlenie tablicy komorek
 

@@ -38,7 +38,6 @@ private:
     vector<vector< int >> tablicaKomorek_;
 
 
-
 };
 
 #endif // SYMULACJA_H
