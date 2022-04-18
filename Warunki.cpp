@@ -29,3 +29,5 @@ void Warunki::setWarunekIloscKomorek(const vector<int> &newWarunekIloscKomorek)
 {
     warunekIloscKomorek_ = newWarunekIloscKomorek;
 }
+
+

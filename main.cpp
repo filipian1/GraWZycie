@@ -4,6 +4,7 @@
 #include <QApplication>
 #include "Kontroler.h"
 #include "Symulacja.h"
+#include "settingswindow.h"
 
 //#include "Symulacja.h"
 //#include <bits/stdc++.h>
@@ -31,7 +32,6 @@ vector <int> interfejsTerminal(){
     cout << "Podaj warunki poczatkowe odzielone spacjami, na koniec podaj znak 'X':" << endl;
     cout << "Podaj: okres poczatkowy, rozmiar_planszy_x, rozmiar_planszy_y, min_zycie, max_zycie, min_smierc, max_smierc" << endl;
 
-
     cout <<"Podane przez ciebie warunku to:" <<endl;
     cout <<" okres_symulacji=10" <<endl;
     cout <<" rozmiar_x=10" <<endl;
@@ -50,8 +50,6 @@ vector <int> interfejsTerminal(){
 
 int main(int argc, char *argv[])
 {
-
-
     int okres_symulacji=10;
     int rozmiar_x=10;
     int rozmiar_y=10;
@@ -63,11 +61,18 @@ int main(int argc, char *argv[])
     string _plik_init="D:\\Users\\285732\\Documents\\WORKSPACES\\Qt\\GraWZycie\\Pliki\\tablica_init.csv";
     //string _plik_init="..\\..\\GraWZycie\\Pliki\\tablica_init.csv";
 
-
     QWidget *myQWidget=0;
     QApplication qAppGameOfLifeObj(argc, argv);
 
+    //Konstruktor glownego obiektu klasy MainWindow. Obiekt MainWindows posiada jako atrybut obiekt Kontroler,
+    //ktory odpowiada za logike aplikacji
     MainWindow mainWindowObj(okres_symulacji, rozmiar_x,  rozmiar_y, stan_pocz,  min_zycie, max_zycie,  min_smierc,  max_smierc,myQWidget);
+
+    mainWindowObj.ustawieniaTablicyKomorek();
+    //dodanie itemów do tablicy
+
+
+
 
     //czy GUI
     bool czy_gui = true;
@@ -78,36 +83,10 @@ int main(int argc, char *argv[])
     }
     else
     {
-       vector <int> myinterfejsTerminal= interfejsTerminal();
+       //vector <int> myinterfejsTerminal= interfejsTerminal();
     }
 
     cout <<"Jest  w main" <<endl;
-
-    //Komorki kom1 = Komorki(rozmiar_x,rozmiar_y,stan_pocz);
-//    Kontroler kontrolerObj = Kontroler(okres_symulacji, rozmiar_x,  rozmiar_y, stan_pocz,  min_zycie,
-//                                       max_zycie,  min_smierc,  max_smierc);
-
-    cout <<"Utworzono obiekt kontrolera: " << &mainWindowObj.kontrolerObj << endl;
-    cout << "okres to: " <<mainWindowObj.kontrolerObj.podajOkresAktualizacji() << endl;
-
-   mainWindowObj.kontrolerObj.symulacjaObj.initTablicaKomorek(_plik_init);
-
-
-    int i=0;
-
-    mainWindowObj.kontrolerObj.symulacjaObj.setStatusSymulacji(true);
-
-    while (mainWindowObj.kontrolerObj.symulacjaObj.statusSymulacji()){
-        cout <<"w while";
-        mainWindowObj.kontrolerObj.symulacjaObj.obliczNastepnyKrokSymulacji();
-        i++;
-
-        if(i>10)
-        {
-            mainWindowObj.kontrolerObj.symulacjaObj.stopSymulacji();
-        }
-    }
-    cout << "Poza_app" << endl;
 
     //kontrolerObj.wczytajGre();
 

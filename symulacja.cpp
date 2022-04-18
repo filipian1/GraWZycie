@@ -1,15 +1,19 @@
 #include "Symulacja.h"
+
 using namespace std;
 
-Symulacja::Symulacja(int _x, int _y,int _stan_pocz, int _min_zycie,
+Symulacja::Symulacja(int _okres, int _x, int _y,int _stan_pocz, int _min_zycie,
                      int _max_zycie, int _min_smierc, int _max_smierc )
     :zycieWarunkiObj(_min_zycie,_max_zycie)
     ,smiercWarunkiObj(_min_smierc, _max_smierc) {
 
+    //inicjalizacja okresu aktualizacji
+    okresAktualizacji_=_okres;
+
     //zerowy krok symulacji
     krokSymulacji_=0;
     //inicjalizacja komorek
-//    cout<<"Symulacja konstruktor" << endl;
+    //cout<<"Symulacja konstruktor" << endl;
 
     wymiarXY_.push_back(_x);
     wymiarXY_.push_back(_y);
@@ -35,16 +39,21 @@ Symulacja::~Symulacja(){}
 
 void Symulacja::startSymulacji(){
     statusSymulacji_=true;
+//ustawienie pierwszego kroku jako 1
+    krokSymulacji_++;
+
+}
+void Symulacja::stopSymulacji(){
+   statusSymulacji_=false;
 }
 
-void Symulacja::stopSymulacji(){
-    statusSymulacji_=false;
+void Symulacja::trwaSymulacja()
+{
 }
 
 void Symulacja::resetSymulacji(){
     statusSymulacji_=false;
 }
-
 void Symulacja::initTablicaKomorek(string _plik_init){
 
 //    cout << "Inicjalizacja Tablicy Komorek"<<endl;
@@ -101,7 +110,6 @@ void  Symulacja::printTablica_komorek(){
         cout << endl;
     }
 }
-
 
 void Symulacja::obliczNastepnyKrokSymulacji(){
 
@@ -180,14 +188,21 @@ int Symulacja::krokSymulacji() const
     return krokSymulacji_;
 }
 
-const vector<vector<int> > &Symulacja::tablicaKomorek() const
-{
-    return tablicaKomorek_;
+//const vector<vector<int> > &Symulacja::tablicaKomorek() const
+//{
+//    return tablicaKomorek_;
+//}
+
+//void Symulacja::setTablicaKomorek(const vector<vector<int> > &newTablicaKomorek)
+//{
+//    tablicaKomorek_ = newTablicaKomorek;
+//}
+
+void Symulacja::setOkresAktualizacji(int _nowy_okres){
+    okresAktualizacji_=_nowy_okres;
 }
 
-void Symulacja::setTablicaKomorek(const vector<vector<int> > &newTablicaKomorek)
-{
-    tablicaKomorek_ = newTablicaKomorek;
+int Symulacja::okresAktualizacji(){
+    return okresAktualizacji_;
 }
-
 

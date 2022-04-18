@@ -12,11 +12,12 @@
 
 class Symulacja{
 public:
-    Symulacja(int, int, int, int, int, int,int);
+    Symulacja(int, int, int, int, int, int, int,int);
     Symulacja();
     ~Symulacja();
     void startSymulacji();
     void stopSymulacji();
+    void trwaSymulacja();
     void resetSymulacji();
     void initTablicaKomorek(string);
     void obliczNastepnyKrokSymulacji();
@@ -26,16 +27,20 @@ public:
     int  krokSymulacji() const;
     void wczytajTablica_komorek();
     void printTablica_komorek();
-    const vector<vector<int> > &tablicaKomorek() const;
-    void setTablicaKomorek(const vector<vector<int> > &newTablicaKomorek);
+  // const vector<vector<int> > &tablicaKomorek() const;
+ //   void setTablicaKomorek(const vector<vector<int> > &newTablicaKomorek);
+    void setOkresAktualizacji(int);
+    int okresAktualizacji();
     Warunki zycieWarunkiObj;
     Warunki smiercWarunkiObj;
+    vector<vector< int >> tablicaKomorek_;
+
 
 private:
     bool statusSymulacji_;
     int krokSymulacji_;
+    int okresAktualizacji_;
     vector<int> wymiarXY_;
-    vector<vector< int >> tablicaKomorek_;
 
 
 };

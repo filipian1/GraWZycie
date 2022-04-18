@@ -13,12 +13,12 @@ public:
     void zapiszGre();
     void wczytajGre(string);
     void startGry();
-    void zmienOkresAktualizacji(int);
-    int podajOkresAktualizacji();
+    void stopGry();
     Symulacja symulacjaObj;
 
+
 private:
-    int okresAktualizacji;
+
 
 
 };

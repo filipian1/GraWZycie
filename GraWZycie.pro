@@ -13,16 +13,19 @@ SOURCES += \
     Symulacja.cpp \
     Warunki.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    settingswindow.cpp
 
 HEADERS += \
     Kontroler.h \
     Symulacja.h \
     Warunki.h \
-    mainwindow.h
+    mainwindow.h \
+    settingswindow.h
 
 FORMS += \
-    mainwindow.ui
+    mainwindow.ui \
+    settingswindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
