@@ -12,16 +12,20 @@ SOURCES += \
     Kontroler.cpp \
     Symulacja.cpp \
     Warunki.cpp \
+    formazycia.cpp \
     main.cpp \
     mainwindow.cpp \
-    settingswindow.cpp
+    settingswindow.cpp \
+    zlozonaformazycia.cpp
 
 HEADERS += \
     Kontroler.h \
     Symulacja.h \
     Warunki.h \
+    formazycia.h \
     mainwindow.h \
-    settingswindow.h
+    settingswindow.h \
+    zlozonaformazycia.h
 
 FORMS += \
     mainwindow.ui \

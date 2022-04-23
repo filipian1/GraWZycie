@@ -12,35 +12,42 @@
 
 class Symulacja{
 public:
-    Symulacja(int, int, int, int, int, int, int,int);
+    Symulacja(int, int, int, int, int, int,int);
     Symulacja();
     ~Symulacja();
     void startSymulacji();
     void stopSymulacji();
-    void trwaSymulacja();
     void resetSymulacji();
-    void initTablicaKomorek(string);
+    void loadTablicaKomorek(string);
+    void saveTablicaKomorek(string);
+    void initTablicaKomorek();
+    void losowyStanPoczatkowy();
+
     void obliczNastepnyKrokSymulacji();
 
     bool statusSymulacji() const;
     void setStatusSymulacji(bool newStatusSymulacji);
     int  krokSymulacji() const;
+    void setKrokSymulacji(int);
     void wczytajTablica_komorek();
-    void printTablica_komorek();
-  // const vector<vector<int> > &tablicaKomorek() const;
- //   void setTablicaKomorek(const vector<vector<int> > &newTablicaKomorek);
+    void printTablicaKomorek();
+//  const vector<vector<int> > &tablicaKomorek() const;
+//  void setTablicaKomorek(const vector<vector<int> > &newTablicaKomorek);
+
     void setOkresAktualizacji(int);
     int okresAktualizacji();
-    Warunki zycieWarunkiObj;
-    Warunki smiercWarunkiObj;
+    Warunki zycieWarunkiObj_;
+    Warunki smiercWarunkiObj_;
     vector<vector< int >> tablicaKomorek_;
+    vector<int> wymiarXY_;
 
 
 private:
     bool statusSymulacji_;
     int krokSymulacji_;
     int okresAktualizacji_;
-    vector<int> wymiarXY_;
+    const int stanPoczatkowy_=0;
+//    vector<int> wymiarXY_;
 
 
 };

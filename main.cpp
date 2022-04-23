@@ -50,9 +50,9 @@ vector <int> interfejsTerminal(){
 
 int main(int argc, char *argv[])
 {
-    int okres_symulacji=10;
-    int rozmiar_x=10;
-    int rozmiar_y=10;
+    int okres_symulacji=500;
+    int rozmiar_x=30;
+    int rozmiar_y=20;
     int stan_pocz=0;
     int min_zycie=3;
     int max_zycie=3;
@@ -66,10 +66,14 @@ int main(int argc, char *argv[])
 
     //Konstruktor glownego obiektu klasy MainWindow. Obiekt MainWindows posiada jako atrybut obiekt Kontroler,
     //ktory odpowiada za logike aplikacji
-    MainWindow mainWindowObj(okres_symulacji, rozmiar_x,  rozmiar_y, stan_pocz,  min_zycie, max_zycie,  min_smierc,  max_smierc,myQWidget);
+    MainWindow mainWindowObj(okres_symulacji, rozmiar_x,  rozmiar_y,  min_zycie, max_zycie,  min_smierc,  max_smierc,myQWidget);
 
-    mainWindowObj.ustawieniaTablicyKomorek();
+
+//    connect(&mainWindowObj,SIGNAL(valueChanged(int),&SettingsWindow,);
+
+//    mainWindowObj.ustawieniaTablicyKomorek();
     //dodanie itemów do tablicy
+
 
 
 
@@ -80,6 +84,10 @@ int main(int argc, char *argv[])
     if (czy_gui ==true)
     {
         mainWindowObj.show();
+        mainWindowObj.ustawieniaTablicyKomorek();
+
+
+
     }
     else
     {
@@ -88,7 +96,6 @@ int main(int argc, char *argv[])
 
     cout <<"Jest  w main" <<endl;
 
-    //kontrolerObj.wczytajGre();
 
 
 
